@@ -2,7 +2,8 @@
 #########################
 # Data for the newsletter
 #########################
-require "pry"
+require 'pry'
+
 CAMPUS = {
   "name": "DC",
   "address": "1440 G St NW, Washington, DC 20005",
@@ -27,47 +28,56 @@ ARTICLES = [
 #########################
 
 def calculate_recipients
-  new_array = []
-  # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
-  # write a method that will return an array of only the subscribers who haven't unsubscribed
-  SUBSCRIBERS.each do |supscribed|
-    if !UNSUBSCRIBED.include?(supscribed)
-    new_array << supscribed
-    end
-  end
-  new_array
+  #you could do this 
+  #SUBSCRIBERS - UNSUBSCRIBERS
+
+# updated_subscribers = []
+#  SUBSCRIBERS.each do |email|
+#     if email != UNSUBSCRIBED.include?(email)
+#       updated_subscribers << email
+#     end
+#     updated_subscribers
+        #under_this a cleaner simpler way
+SUBSCRIBERS.select do |email|
+  #.select selcts email and puts in an empty array
+      email != UNSUBSCRIBED.include?(email)
+      end
 end
 
 
 def first_n_articles(number_of_articles)
-  ARTICLES.first(number_of_articles.to_i)
+      ARTICLES.first(number_of_articles.to_i)
 end
 
 def print_recipients
+  puts calculate_recipients.join(", ")
+  
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
-  puts calculate_recipients.join(", ")
+  
 end
 # binding.pry
 
 def print_one_article(article)
-  # article = []
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
   puts article[:title]
   puts "by: #{article[:author]}"
   puts article[:text]
-  end
+  puts
+  
+end
   # binding.pry
 
 def print_many_articles(articles)
   # Write a method that will take in an array of article hashes
   # and format each one using the print_one_article method
-  articles.each do |article|
-    print_one_article(article)
-    puts "\n"
+  #binding.pry
+  articles.each do |one_article|
+    puts print_one_article(one_article)
+    
   end
 end
   
@@ -106,7 +116,7 @@ def run
   # We want our program to print three articles by default,
   # but we can change that number here
   print_newsletter("3")
-  calculate_recipients
+  
   # print_one_article
 end
 
